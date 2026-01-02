@@ -17,9 +17,10 @@ class SendEmailEvent
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public $purchase;
+    public function __construct($purchase)
     {
-        //
+        return $this->purchase = $purchase;
     }
 
     /**

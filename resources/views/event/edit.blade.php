@@ -7,11 +7,12 @@
                 <h3 class="text-center p-2">Event Creation </h3>
             </div>
             <div class="card-body">
-                <form action="{{route('event.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('event.update',$event->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="mb-2">
                         <label for="event_title" class="form-label">Event Title: </label>
-                        <input type="text" name="event_title" id="event_title" class="form-control" value="{{old('event_title')}}">
+                        <input type="text" name="event_title" id="event_title" class="form-control" value="{{old('event_title',$event->event_title)}}">
                         @error('event_title')
                             <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -24,7 +25,7 @@
                         <select name="event_type" id="event_type" class="form-select">
                             <option value="">--Select Event Type--</option>
                             @foreach ($event_types as $event_type)
-                                <option value="{{$event_type}}" @selected($event_type == old('event_type'))>{{$event_type}}</option>
+                                <option value="{{$event_type}}" @selected($event_type == old('event_type',$event->event_type))>{{$event_type}}</option>
                             @endforeach
                         </select>
                         @error('event_type')
@@ -34,14 +35,14 @@
                     <div class="row">
                         <div class="col-4">
                             <label for="start_date" class="form-label">Start Date: </label>
-                            <input type="date" name="start_date" id="start_date" class="form-control" value="{{old('start_date')}}">
+                            <input type="date" name="start_date" id="start_date" class="form-control" value="{{old('start_date',$event->start_date)}}">
                             @error('start_date')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-4">
                             <label for="end_date" class="form-label">End Date: </label>
-                            <input type="date" name="end_date" id="end_date" class="form-control" value="{{old('end_date')}}">
+                            <input type="date" name="end_date" id="end_date" class="form-control" value="{{old('end_date',$event->end_date)}}">
                             @error('end_date')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -49,7 +50,7 @@
                     </div>
                     <div class="mb-2">
                         <label for="venue" class="form-label"> Venue: </label>
-                        <input type="text" name="venue" id="venue" class="form-control" value="{{old('venue')}}">
+                        <input type="text" name="venue" id="venue" class="form-control" value="{{old('venue',$event->venue)}}">
                         @error('venue')
                             <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -59,7 +60,7 @@
                         <select name="country_id" id="country_id" class="form-select">
                             <option value="">--Select Country--</option>
                             @foreach ($countries as $country)
-                                <option value="{{$country->id}}" @selected($country->id == old('country_id'))>{{$country->name}}</option>
+                                <option value="{{$country->id}}" @selected($country->id == old('country_id',$event->country_id))>{{$country->name}}</option>
                             @endforeach
                         </select>
                         @error('country_id')
@@ -80,7 +81,7 @@
                         <select name="organizer_id" id="organizer_id" class="form-select">
                             <option value="">--Select Organizer--</option>
                             @foreach ($organizers as $organizer)
-                                <option value="{{$organizer->id}}" @selected($organizer->id == old('organizer_id'))>{{$organizer->name}}</option>
+                                <option value="{{$organizer->id}}" @selected($organizer->id == old('organizer_id',$event->organizer_id))>{{$organizer->name}}</option>
                             @endforeach
                         </select>
                         @error('organizer_id')
@@ -90,20 +91,21 @@
                     <div class="mb-2">
                         <label for="banner_image" class="form-label"> Banner Image: </label>
                         <input type="file" name="banner_image" id="banner_image" class="form-control">
+                        <img src="{{asset('storage/'.$event->banner_image)}}" width="100" height="100">
                         @error('banner_image')
                             <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="mb-2">
                         <label for="description" class="form-label"> Description: </label>
-                        <textarea name="description" id="description" rows="2" class="form-control">{{old('description')}}</textarea>
+                        <textarea name="description" id="description" rows="2" class="form-control">{{old('description',$event->description)}}</textarea>
                         @error('description')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>
                     <div class="mb-2">
                         <label for="max_attendees" class="form-label"> Max Attendees: </label>
-                        <input type="number" name="max_attendees" id="max_attendees" class="form-control" value="{{old('max_attendees')}}">
+                        <input type="number" name="max_attendees" id="max_attendees" class="form-control" value="{{old('max_attendees',$event->max_attendees)}}">
                         @error('max_attendees')
                             <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -116,7 +118,7 @@
                         <select name="event_status" id="event_status" class="form-select">
                             <option value="">--Select Event Type--</option>
                             @foreach ($event_status as $status)
-                                <option value="{{$status}}" @selected($status == old('event_status'))>{{$status}}</option>
+                                <option value="{{$status}}" @selected($status == old('event_status',$event->event_status))>{{$status}}</option>
                             @endforeach
                         </select>
                         @error('event_status')
@@ -125,7 +127,7 @@
                     </div>
                     <div class="card-body">
                         @php
-                            $oldDatas = old('session',[]);
+                            $oldDatas = old('session',$event->sessions);
                         @endphp
                         <div class="s_rowGroup border">
                             <div class="card-header p-2 m-2">
@@ -233,7 +235,7 @@
                     </div>
                     <div class="card-body">
                         @php
-                            $oldTickets = old('ticket', []);
+                            $oldTickets = old('ticket', $event->tickets);
                             $ticketTypes = ['Regular', 'VIP', 'Student'];
                         @endphp
                         <div class="t_rowGroup border">
@@ -325,13 +327,14 @@
         $(document).ready(function(){
             $('#country_id').on('change',function(){
                 let country_id = $(this).val();
-                let city_id = "{{old('city_id')}}";
+                let city_id = "{{old('city_id',$event->city_id)}}";
                 $.ajax({
                     url : "{{route('getCity')}}",
                     method : "GET",
                     data : {country_id, city_id},
                     success : function(data){
                         $('#city_id').html(data)
+                        $('#city_id').val(city_id);
                     }
                 })
             });
@@ -344,19 +347,19 @@
                 let i = $('.s_rowItem').length;
                 if(i <10){
                     let html =
-                    `<div class="s_rowItem d-flex gap-2 p-2 m-2">
-                        <div class="col-2">
-                            <label for="session_title${i}" class="form-label">Session Title:</label>
+                    `<div class="s_rowItem d-flex gap-2 m-3 p-2">
+                        <div class="col-3">
+                            <label for="session_title${i}" class="form-label">  Session Title: </label>
                             <input type="text" name="session[${i}][session_title]" id="session_title${i}" class="form-control" >
                             @error('session.${i}.session_title')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="col-3">
-                            <label for="speaker_id${i}" class="form-label"> Speaker:</label>
+                        <div class="col-2">
+                            <label for="speaker_id${i}" class="form-label"> Speaker: </label>
                             <select name="session[${i}][speaker_id]" id="speaker_id${i}" class="form-select">
                                 <option value="">--Select Speaker--</option>
-                                @foreach ($speakers as $speaker )
+                                @foreach ($speakers as $speaker)
                                     <option value="{{$speaker->id}}" >{{$speaker->name}}</option>
                                 @endforeach
                             </select>
@@ -365,28 +368,28 @@
                             @enderror
                         </div>
                         <div class="col-2">
-                            <label for="start_time${i}" class="form-label">Session Start Time:</label>
+                            <label for="start_time${i}" class="form-label">  Start Time: </label>
                             <input type="time" name="session[${i}][start_time]" id="start_time${i}" class="form-control" >
-                            @error('session.${i}.start_time')
+                            @error('session${i}.start_time')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-2">
-                            <label for="end_time${i}" class="form-label">Session End Time:</label>
+                            <label for="end_time${i}" class="form-label">  End Time: </label>
                             <input type="time" name="session[${i}][end_time]" id="end_time${i}" class="form-control" >
                             @error('session.${i}.end_time')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-2">
-                            <label for="description${i}" class="form-label">Description:</label>
-                            <textarea name="session[${i}][description]" id="description${i}" class="form-control" rows="1"></textarea>
+                            <label for="description${i}" class="form-label"> Description: </label>
+                            <textarea name="session[${i}][description]" id="description${i}" rows="1" class="form-control"></textarea>
                             @error('session.${i}.description')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="col-1 text-center mt-4">
-                            <a class="btn btn-danger s_removeRow ">-</a>
+                        <div class="col-1 mt-4">
+                            <a class="btn btn-danger s_removeRow"> - </a>
                         </div>
                     </div>
                     `;
@@ -402,38 +405,38 @@
             });
 
             $(document).on('click','.t_add',function(){
-                let i = $('.t_rowItem').length;
+                let i = $('t_rowItem').length;
                 if(i < 3){
                     let html =
-                    `<div class="t_rowItem d-flex p-2 m-2 gap-3">
+                    `<div class="t_rowItem d-flex gap-2 m-3">
                         <div class="col-4">
-                            <label for="ticket_type${i}" class="form-label">Ticket Type: </label>
+                            <label for="ticket_type${i}" class="form-label"> Ticket Type: </label>
                             <select name="ticket[${i}][ticket_type]" id="ticket_type${i}" class="form-select">
-                                <option value="">--Select Ticket--</option>
-                                @foreach ($ticketTypes as $type)
-                                    <option value="{{$type}}" >{{$type}}</option>
+                                <option value="">--Select Speaker--</option>
+                                @foreach ($ticketTypes as $ticket_type)
+                                    <option value="{{$ticket_type}}">{{$ticket_type}}</option>
                                 @endforeach
                             </select>
                             @error('ticket.${i}.ticket_type')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="col-3">
-                            <label for="price${i}" class="form-label">Price:</label>
-                            <input type="number" name="ticket[${i}][price]" id="price${i}" class="form-control">
+                        <div class="col-4">
+                            <label for="price${i}" class="form-label"> Price: </label>
+                            <input type="number" name="ticket[${i}][price]" id="price${i}" class="form-control" >
                             @error('ticket.${i}.price')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="col-3">
-                            <label for="max_quantity${i}" class="form-label">Maximum Quantity:</label>
-                            <input type="number" name="ticket[${i}][max_quantity]" id="max_quantity${i}" class="form-control" >
+                            <label for="max_quantity${i}" class="form-label"> Max Quantity: </label>
+                            <input type="number" name="ticket[${i}][max_quantity]" id="max_quantity${i}" class="form-control">
                             @error('ticket.${i}.max_quantity')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <div class="col-2 text-center mt-4">
-                            <a class="btn btn-danger t_removeRow">-</a>
+                        <div class="col-1 mt-4 text-center">
+                            <a class="btn btn-danger t_removeRow"> - </a>
                         </div>
                     </div>
                     `;
