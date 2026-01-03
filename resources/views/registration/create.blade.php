@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.app')
 @section('title','Event Register')
 @section('content')
     <div class="container">

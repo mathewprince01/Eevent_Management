@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventSession extends Model
 {
+    protected $guarded = [];
     public function speaker(){
         return $this->belongsTo(Speaker::class);
     }

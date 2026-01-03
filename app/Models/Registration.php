@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Registration extends Model
 {
+    protected $guarded = [];
    public function attendee(){
     return $this->belongsTo(Attendee::class);
    }
@@ -13,6 +14,6 @@ class Registration extends Model
     return $this->belongsTo(Event::class,'event_id');
    }
    public function ticket(){
-    return $this->belongsTo(Event::class,'ticket_type_id');
+    return $this->belongsTo(TicketType::class,'ticket_type_id');
    }
 }

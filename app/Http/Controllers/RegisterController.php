@@ -25,8 +25,11 @@ class RegisterController extends Controller
             $attendee = Attendee::where('user_id', $user->id)->first();
             $query->where('attendee_id',$attendee->id)->get();
         }
+
         $purchases = $query->get();
+        //  dd($purchases);
         return view('registration.list',compact('purchases'));
+
     }
 
     public function create()

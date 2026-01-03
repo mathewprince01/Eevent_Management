@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.app')
 @section('title','Registration List')
 @section('content')
 <x-LogoutComponent/>
@@ -20,7 +20,9 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($purchases as $purchase)
+
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$purchase->event->event_title}}</td>

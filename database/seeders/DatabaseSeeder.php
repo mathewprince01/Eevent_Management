@@ -21,43 +21,43 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'mathew',
             'email' => 'mathew@gmail.com',
-            'password' => Hash::make('321456'),
+            'password' => Hash::make('789456'),
             'role' => 'Admin'
         ]);
         User::factory()->create([
             'name' => 'suvisesh',
             'email' => 'suvisesh@gmail.com',
-            'password' => Hash::make('321456'),
+            'password' => Hash::make('789456'),
             'role' => 'Speaker'
         ]);
         User::factory()->create([
             'name' => 'sam',
             'email' => 'sam@gmail.com',
-            'password' => Hash::make('321456'),
+            'password' => Hash::make('789456'),
             'role' => 'Speaker'
         ]);
         User::factory()->create([
             'name' => 'raj',
             'email' => 'raj@gmail.com',
-            'password' => Hash::make('321456'),
+            'password' => Hash::make('789456'),
             'role' => 'Organizer'
         ]);
         User::factory()->create([
             'name' => 'joe',
             'email' => 'joe@gmail.com',
-            'password' => Hash::make('321456'),
+            'password' => Hash::make('789456'),
             'role' => 'Organizer'
         ]);
         User::factory()->create([
             'name' => 'prince',
             'email' => 'prince@gmail.com',
-            'password' => Hash::make('321456'),
+            'password' => Hash::make('789456'),
             'role' => 'Attendee'
         ]);
         User::factory()->create([
             'name' => 'hari',
             'email' => 'hari@gmail.com',
-            'password' => Hash::make('321456'),
+            'password' => Hash::make('789456'),
             'role' => 'Attendee'
         ]);
         $this->call(InputSeeder::class);

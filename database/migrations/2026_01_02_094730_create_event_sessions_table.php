@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignIdFor(Event::class)->constrained()->cascadeOnDelete();
             $table->string('session_title');
             $table->foreignIdFor(Speaker::class)->constrained()->cascadeOnDelete();
-            $table->date('start_time');
-            $table->date('end_time');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->text('description');
             $table->timestamps();
         });

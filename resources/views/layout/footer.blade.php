@@ -1,3 +1,3 @@
 <footer>
-    <div class="text-center mt-5">&copy; DANIEL 2025::EVENT MANAGEMENT</div>
+    <div class="text-center mt-5">&copy; Mathew 2026::EVENT MANAGEMENT</div>
 </footer>

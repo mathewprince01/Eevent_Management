@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.app')
 @section('title','organizer dashboard')
 @section('content')
     <x-LogoutComponent/>
@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <table class="table table-bordered text-center">
-                    <thead class="table-dark">
+                    <thead class="table-primary">
                         <tr>
                             <th>Total Sold</th>
                             <th>Revenue</th>

@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.app')
 @section('title','event List')
 @section('content')
     <x-LogoutComponent/>
@@ -42,7 +42,7 @@
             </div>
             <div class="card-body">
                 <table class="table table-bordered text-center">
-                    <thead class="table-dark">
+                    <thead class="table-primary">
                         <tr>
                             <th>S.NO</th>
                             <th>Event Title</th>

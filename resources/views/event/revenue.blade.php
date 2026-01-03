@@ -10,7 +10,7 @@
 
         }
         th,td{
-            border: 1px solid black;
+            border: 1px solid rgb(0, 0, 0);
             padding: 15px;
             text-align: center;
         }
